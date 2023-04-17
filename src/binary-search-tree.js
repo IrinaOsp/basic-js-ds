@@ -21,16 +21,16 @@ class BinarySearchTree {
       if (!node) {
         return new Node(data)
       }
-      if (node.value === data) {
+      if (node.data === data) {
         return node
       }
-      if (data < node.value) {
+      if (data < node.data) {
         node.left = addWithin(node.left, data)
       } else {
         node.right = addWithin(node.right, data)
       }
 
-      return node
+      return node;
     }
   }
 
@@ -39,31 +39,52 @@ class BinarySearchTree {
 
     function searchWithin(node, data) {
       if(!node) {
-        return false
+        return false;
       }
-      return data < node.value ?
-        searchWithin(node.left, data) :
-        searchWithin(node.right, data)
+      if (node.data === data) {
+        return true;
+      }
+      if (data < node.data) {
+        return searchWithin(node.left, data)
+      } else {
+        return searchWithin(node.right, data);
+      }
+
     }
   }
 
   find(data) {
-    
+    return findWithin(this.rootTree, data)
+
+    function findWithin(node, data) {
+      if(!node) {
+        return null;
+      }
+      if (node.data === data) {
+        console.log(node.data)
+        return node.data;
+      }
+      if (data < node.data) {
+        return findWithin(node.left, data)
+      } else {
+        return findWithin(node.right, data);
+      }
+    }
   }
 
   remove(data) {
     this.rootTree = removeNode(this.rootTree, data)
 
-    function removeNode(node, value) {
+    function removeNode(node, data) {
       if (!node) {
         return null
       }
 
-      if (value < node.value) {
-        node.left = removeNode(node.left, value)
+      if (data < node.data) {
+        node.left = removeNode(node.left, data)
         return node
-      } else if (node.value < value) {
-        node.right = removeNode(node.right, value)
+      } else if (node.data < data) {
+        node.right = removeNode(node.right, data)
         return node
       } else {
         if (!node.left && !node.right) {
@@ -84,8 +105,8 @@ class BinarySearchTree {
         while (minFromRight.left) {
           minFromRight = minFromRight.left
         }
-        node.value = minFromRight.value
-        node.right = removeNode(node.right, minFromRight.value)
+        node.data = minFromRight.data
+        node.right = removeNode(node.right, minFromRight.data)
 
         return node;
       }
@@ -100,9 +121,8 @@ class BinarySearchTree {
     while (node.left) {
       node = node.left
     }
-    return node.value
+    return node.data
   }
-  
 
   max() {
     if (!this.rootTree) {
@@ -112,7 +132,7 @@ class BinarySearchTree {
     while (node.right) {
       node = node.right;
     }
-    return node.value
+    return node.data
   }
 }
 
