@@ -61,8 +61,7 @@ class BinarySearchTree {
         return null;
       }
       if (node.data === data) {
-        console.log(node.data)
-        return node.data;
+        return node;
       }
       if (data < node.data) {
         return findWithin(node.left, data)
